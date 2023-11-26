@@ -8,10 +8,7 @@ import com.example.demo.exception.common.NotFoundException;
 import com.example.demo.repo.EmployeeJobRepo;
 import com.example.demo.repo.EmployeeRepo;
 import com.example.demo.rest.dto.degree.NewDegreeRequest;
-import com.example.demo.rest.dto.employee.AddEmployeeRequest;
-import com.example.demo.rest.dto.employee.EditEmployeeRequest;
-import com.example.demo.rest.dto.employee.EmployeeDiscipline;
-import com.example.demo.rest.dto.employee.EmployeeFull;
+import com.example.demo.rest.dto.employee.*;
 import com.example.demo.service.*;
 import com.example.demo.utils.converters.employee.EmployeeConverterFactory;
 import lombok.AllArgsConstructor;
@@ -210,6 +207,26 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(result);
+    }
+
+    @Override
+    public void addDiscipline(AddEmployeeDisciplineRequest request) {
+        Employee employee = getById(request.getEmployeeId());
+        Discipline discipline = disciplineService.getById(request.getDisciplineId());
+
+        // Тупая проверка на то чтобы у нас не было ситуации когда у сотрудника эта дисциплина уже есть
+        for (Discipline employeeDiscipline: employee.getDisciplines()) {
+            if (Objects.equals(employeeDiscipline.getId(), discipline.getId())) {
+                throw new BadRequestException("У сотрудника с id = " + discipline.getId() +
+                        " уже есть дисциплина с id = " + discipline.getId());
+            }
+        }
+
+        // Тут должна быть проверка на то что дисциплина относится к кафедре но похуй
+
+        employee.getDisciplines().add(discipline);
+
+        employeeRepo.save(employee);
     }
 
     private List<EmployeeDiscipline> getDisciplines(Employee employee) {

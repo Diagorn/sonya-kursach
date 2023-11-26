@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface DisciplineService {
     List<Discipline> getByEmployee(Employee employee);
+
+    Discipline getById(Long disciplineId);
 }

@@ -1,10 +1,7 @@
 package com.example.demo.rest.controller;
 
 import com.example.demo.rest.dto.degree.NewDegreeRequest;
-import com.example.demo.rest.dto.employee.AddEmployeeRequest;
-import com.example.demo.rest.dto.employee.EditEmployeeRequest;
-import com.example.demo.rest.dto.employee.EmployeeDiscipline;
-import com.example.demo.rest.dto.employee.EmployeeFull;
+import com.example.demo.rest.dto.employee.*;
 import com.example.demo.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -72,5 +69,11 @@ public class EmployeeController {
     @GetMapping("/age/{ageCode}")
     public ResponseEntity<List<EmployeeFull>> getEmployeesByAgeGroup(@PathVariable int ageCode) {
         return employeeService.getAllByAgeGroup(ageCode);
+    }
+
+    @PostMapping("/addDiscipline")
+    public ResponseEntity<?> addDiscipline(@RequestBody AddEmployeeDisciplineRequest request) {
+        employeeService.addDiscipline(request);
+        return ResponseEntity.ok().build();
     }
 }
