@@ -62,7 +62,7 @@ public class Employee {
     private List<EmployeeJob> employeeJobs;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "teacher")
     private List<Lesson> lessons;
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinTable(
             name = "employee_department",
             inverseJoinColumns = @JoinColumn(name = "department_id"),
