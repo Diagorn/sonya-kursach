@@ -21,14 +21,12 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -84,17 +82,22 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public ResponseEntity<EmployeeFull> findByFio(String fio) {
-        return ResponseEntity.ok(employeeConverterFactory.getEmployeeFullConverter().convert(getByFio(fio)));
+    public ResponseEntity<List<EmployeeFull>> findByFio(String fio) {
+        List<EmployeeFull> result = getByFio(fio).stream()
+                .map(employee -> employeeConverterFactory.getEmployeeFullConverter().convert(employee))
+                .collect(Collectors.toList());
+
+
+        return ResponseEntity.ok(result);
     }
 
-    private Employee getByFio(String fio) {
-        Optional<Employee> employee = employeeRepo.findByFio(fio);
-        if (employee.isEmpty()) {
+    private List<Employee> getByFio(String fio) {
+        List<Employee> employees = employeeRepo.findAllByFio(fio);
+        if (CollectionUtils.isEmpty(employees)) {
             throw new NotFoundException("Не найден сотрудник с ФИО " + fio);
         }
 
-        return employee.get();
+        return employees;
     }
 
     @Override
@@ -169,14 +172,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public ResponseEntity<List<EmployeeDiscipline>> getEmployeeDisciplinesByFio(String employeeFio) {
-        Employee employee = getByFio(employeeFio);
-        return getDisciplines(employee);
+        List<Employee> employees = getByFio(employeeFio);
+        LinkedList<EmployeeDiscipline> employeeDisciplines = new LinkedList<>();
+
+        employees.forEach(emp -> employeeDisciplines.addAll(getDisciplines(emp)));
+        return ResponseEntity.ok(employeeDisciplines);
     }
 
     @Override
     public ResponseEntity<List<EmployeeDiscipline>> getEmployeeDisciplinesById(Long employeeId) {
         Employee employee = getById(employeeId);
-        return getDisciplines(employee);
+        return ResponseEntity.ok(getDisciplines(employee));
     }
 
     @Override
@@ -206,7 +212,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         return ResponseEntity.ok(result);
     }
 
-    private ResponseEntity<List<EmployeeDiscipline>> getDisciplines(Employee employee) {
+    private List<EmployeeDiscipline> getDisciplines(Employee employee) {
         List<Discipline> allDisciplines = disciplineService.getByEmployee(employee);
 
         Map<Long, List<String>> disciplineGroupsMap = allDisciplines.stream()
@@ -227,7 +233,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                         .build())
                 .toList();
 
-        return ResponseEntity.ok(result);
+        return result;
     }
 
     @Getter

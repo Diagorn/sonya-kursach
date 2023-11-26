@@ -16,7 +16,7 @@ public interface EmployeeService {
 
     ResponseEntity<EmployeeFull> add(AddEmployeeRequest request);
 
-    ResponseEntity<EmployeeFull> findByFio(String fio);
+    ResponseEntity<List<EmployeeFull>> findByFio(String fio);
 
     ResponseEntity<List<EmployeeFull>> findAllWithContractEndingThisYear();
 

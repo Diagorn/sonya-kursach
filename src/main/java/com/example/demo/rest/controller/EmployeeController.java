@@ -29,7 +29,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/fio/{fio}")
-    public ResponseEntity<EmployeeFull> getByFio(@PathVariable String fio) {
+    public ResponseEntity<List<EmployeeFull>> getByFio(@PathVariable String fio) {
         return employeeService.findByFio(fio);
     }
 

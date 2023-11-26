@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface EmployeeRepo extends JpaRepository<Employee, Long> {
-    Optional<Employee> findByFio(String fio);
+    List<Employee> findAllByFio(String fio);
     List<Employee> findByEmployeeTypeAndContractExpireDateBetween(EmployeeType employeeType, LocalDate from, LocalDate to);
     List<Employee> findAllByDegree(Degree degree);
 
