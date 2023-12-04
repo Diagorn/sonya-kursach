@@ -1,6 +1,5 @@
 package com.example.demo.entity;
 
-import com.example.demo.entity.parent.AbstractDictionary;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +14,13 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "discipline")
-public class Discipline extends AbstractDictionary {
+public class Discipline {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "discipline_seq")
+    @SequenceGenerator(name = "discipline_seq", sequenceName = "discipline_seq", allocationSize = 1)
+    private Long id;
+    @Column(name = "name")
+    private String name;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "department_id")
     private Department department;

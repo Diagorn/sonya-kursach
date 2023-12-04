@@ -65,12 +65,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         EmployeeType type = employeeTypeService.findById(request.getCategoryId());
         employee.setEmployeeType(type);
 
-        List<EmployeeJob> employeeJobs = employee.getEmployeeJobs();
-        if (employeeJobs == null) {
-            employeeJobs = new ArrayList<>();
+        if (employee.getEmployeeJobs() == null) {
+            employee.setEmployeeJobs(new ArrayList<>());
         }
 
-        employeeJobs.add(EmployeeJob.builder()
+        employee.getEmployeeJobs().add(EmployeeJob.builder()
                 .dateStart(LocalDate.now())
                 .dateEnd(null)
                 .salary(BigDecimal.ZERO)

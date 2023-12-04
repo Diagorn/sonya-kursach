@@ -10,17 +10,17 @@ drop sequence if exists institute_seq;
 drop sequence if exists learning_group_seq;
 drop sequence if exists lesson_seq;
 
-create sequence award_seq start with 1 increment by 50;
-create sequence degree_seq start with 1 increment by 50;
-create sequence department_seq start with 1 increment by 50;
-create sequence discipline_seq start with 1 increment by 50;
-create sequence education_document_seq start with 1 increment by 50;
-create sequence employee_job_seq start with 1 increment by 50;
-create sequence employee_seq start with 1 increment by 50;
-create sequence employee_type_seq start with 1 increment by 50;
-create sequence institute_seq start with 1 increment by 50;
-create sequence learning_group_seq start with 1 increment by 50;
-create sequence lesson_seq start with 1 increment by 50;
+create sequence award_seq start with 1 increment by 1;
+create sequence degree_seq start with 1 increment by 1;
+create sequence department_seq start with 1 increment by 1;
+create sequence discipline_seq start with 1 increment by 1;
+create sequence education_document_seq start with 1 increment by 1;
+create sequence employee_job_seq start with 1 increment by 1;
+create sequence employee_seq start with 1 increment by 1;
+create sequence employee_type_seq start with 1 increment by 1;
+create sequence institute_seq start with 1 increment by 1;
+create sequence learning_group_seq start with 1 increment by 1;
+create sequence lesson_seq start with 1 increment by 1;
 
 create table award
 (

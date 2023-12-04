@@ -1,6 +1,5 @@
 package com.example.demo.entity;
 
-import com.example.demo.entity.parent.AbstractEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,7 +13,11 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "employee")
-public class Employee extends AbstractEntity {
+public class Employee {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_seq")
+    @SequenceGenerator(name = "employee_seq", sequenceName = "employee_seq", allocationSize = 1)
+    private Long id;
     @Column(name = "fio", nullable = false)
     private String fio;
     @Column(name = "date_of_birth", nullable = false)

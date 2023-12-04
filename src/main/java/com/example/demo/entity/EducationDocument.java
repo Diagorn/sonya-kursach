@@ -1,6 +1,5 @@
 package com.example.demo.entity;
 
-import com.example.demo.entity.parent.AbstractEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +14,11 @@ import java.time.LocalDate;
 @Setter
 @Entity
 @Table(name = "education_document")
-public class EducationDocument extends AbstractEntity {
+public class EducationDocument {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "education_document_seq")
+    @SequenceGenerator(name = "education_document_seq", sequenceName = "education_document_seq", allocationSize = 1)
+    private Long id;
     @Column(name = "serie", nullable = false, length = 15)
     private String serie;
     @Column(name = "number", nullable = false, length = 15)

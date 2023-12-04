@@ -1,10 +1,6 @@
 package com.example.demo.entity;
 
-import com.example.demo.entity.parent.AbstractDictionary;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +14,13 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "degree")
-public class Degree extends AbstractDictionary {
+public class Degree {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "degree_seq")
+    @SequenceGenerator(name = "degree_seq", sequenceName = "degree_seq", allocationSize = 1)
+    private Long id;
+    @Column(name = "name")
+    private String name;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "degree")
     private List<Employee> employees;
 }

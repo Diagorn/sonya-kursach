@@ -1,45 +1,45 @@
 insert into employee_type (id, name)
 values
-    (1, 'Профессорско-преподавательский состав'),
-    (2, 'Руководитель'),
-    (3, 'Вспомогательный персонал');
+    (nextval('employee_type_seq'), 'Профессорско-преподавательский состав'),
+    (nextval('employee_type_seq'), 'Руководитель'),
+    (nextval('employee_type_seq'), 'Вспомогательный персонал');
 
 insert into degree (id, name)
 values
-    (1, 'Среднее'),
-    (2, 'Среднее специальное'),
-    (3, 'Бакалавр'),
-    (4, 'Магистр'),
-    (5, 'Кандидат наук'),
-    (6, 'Доктор наук');
+    (nextval('degree_seq'), 'Среднее'),
+    (nextval('degree_seq'), 'Среднее специальное'),
+    (nextval('degree_seq'), 'Бакалавр'),
+    (nextval('degree_seq'), 'Магистр'),
+    (nextval('degree_seq'), 'Кандидат наук'),
+    (nextval('degree_seq'), 'Доктор наук');
 
 insert into institute (id, name)
 values
-    (1, 'ИВТИ'),
-    (2, 'ИГВИЭ'),
-    (3, 'ИТАЭ'),
-    (4, 'ИЭВТ'),
-    (5, 'ИЭТЭ'),
-    (6, 'ИЭЭ'),
-    (7, 'ИРЭ'),
-    (8, 'ВИИ'),
-    (9, 'ИнЭИ'),
-    (10, 'ГПИ'),
-    (11, 'ИДДО'),
-    (12, 'ЭнМИ');
+    (nextval('institute_seq'), 'ИВТИ'),
+    (nextval('institute_seq'), 'ИГВИЭ'),
+    (nextval('institute_seq'), 'ИТАЭ'),
+    (nextval('institute_seq'), 'ИЭВТ'),
+    (nextval('institute_seq'), 'ИЭТЭ'),
+    (nextval('institute_seq'), 'ИЭЭ'),
+    (nextval('institute_seq'), 'ИРЭ'),
+    (nextval('institute_seq'), 'ВИИ'),
+    (nextval('institute_seq'), 'ИнЭИ'),
+    (nextval('institute_seq'), 'ГПИ'),
+    (nextval('institute_seq'), 'ИДДО'),
+    (nextval('institute_seq'), 'ЭнМИ');
 
 insert into discipline (id, name)
 values
-    (1, 'Математический анализ'),
-    (2, 'Линейная алгебра'),
-    (3, 'Физика'),
-    (4, 'История'),
-    (5, 'Основы программирования');
+    (nextval('discipline_seq'), 'Математический анализ'),
+    (nextval('discipline_seq'), 'Линейная алгебра'),
+    (nextval('discipline_seq'), 'Физика'),
+    (nextval('discipline_seq'), 'История'),
+    (nextval('discipline_seq'), 'Основы программирования');
 
 insert into learning_group (id, name)
 values
-    (1, 'А-13б-20'),
-    (2, 'ИЭ-65-22'),
-    (3, 'ЭР-12-21');
+    (nextval('learning_group_seq'), 'А-13б-20'),
+    (nextval('learning_group_seq'), 'ИЭ-65-22'),
+    (nextval('learning_group_seq'), 'ЭР-12-21');
 
 commit ;

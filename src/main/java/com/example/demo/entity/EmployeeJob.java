@@ -1,6 +1,5 @@
 package com.example.demo.entity;
 
-import com.example.demo.entity.parent.AbstractEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,7 +13,11 @@ import java.time.LocalDate;
 @Builder
 @Entity
 @Table(name = "employee_job")
-public class EmployeeJob extends AbstractEntity {
+public class EmployeeJob {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_job_seq")
+    @SequenceGenerator(name = "employee_job_seq", sequenceName = "employee_job_seq", allocationSize = 1)
+    private Long id;
     @Column(name = "position", nullable = false, length = 127)
     private String position;
     @Column(name = "date_start", nullable = false)
