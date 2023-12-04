@@ -11,6 +11,7 @@ import lombok.Setter;
 @MappedSuperclass
 public class AbstractDictionary  {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
     @Column(name = "name")

@@ -1,3 +1,27 @@
+drop sequence if exists award_seq;
+drop sequence if exists degree_seq;
+drop sequence if exists department_seq;
+drop sequence if exists discipline_seq;
+drop sequence if exists education_document_seq;
+drop sequence if exists employee_job_seq;
+drop sequence if exists employee_seq;
+drop sequence if exists employee_type_seq;
+drop sequence if exists institute_seq;
+drop sequence if exists learning_group_seq;
+drop sequence if exists lesson_seq;
+
+create sequence award_seq start with 1 increment by 50;
+create sequence degree_seq start with 1 increment by 50;
+create sequence department_seq start with 1 increment by 50;
+create sequence discipline_seq start with 1 increment by 50;
+create sequence education_document_seq start with 1 increment by 50;
+create sequence employee_job_seq start with 1 increment by 50;
+create sequence employee_seq start with 1 increment by 50;
+create sequence employee_type_seq start with 1 increment by 50;
+create sequence institute_seq start with 1 increment by 50;
+create sequence learning_group_seq start with 1 increment by 50;
+create sequence lesson_seq start with 1 increment by 50;
+
 create table award
 (
     date_recieve       date,
@@ -6,13 +30,13 @@ create table award
     giver_organization varchar(512)  not null,
     text               varchar(2000) not null,
     primary key (id)
-)
+);
 create table degree
 (
     id   bigint not null,
     name varchar(255),
     primary key (id)
-)
+);
 create table department
 (
     foundation_year integer,
@@ -21,14 +45,14 @@ create table department
     room            varchar(10),
     name            varchar(255),
     primary key (id)
-)
+);
 create table discipline
 (
     department_id bigint,
     id            bigint not null,
     name          varchar(255),
     primary key (id)
-)
+);
 create table education_document
 (
     giving_date     date        not null,
@@ -38,7 +62,7 @@ create table education_document
     serie           varchar(15) not null,
     university_name varchar(255),
     primary key (id)
-)
+);
 create table employee
 (
     date_of_birth         date         not null,
@@ -60,12 +84,12 @@ create table employee
     contract_expire_date  date         not null,
     rank                  varchar(30),
     primary key (id)
-)
+);
 create table employee_department
 (
     department_id bigint not null,
     employee_id   bigint not null
-)
+);
 create table employee_job
 (
     date_end          date,
@@ -76,25 +100,25 @@ create table employee_job
     position          varchar(127)   not null,
     organization_name varchar(255)   not null,
     primary key (id)
-)
+);
 create table employee_type
 (
     id   bigint not null,
     name varchar(255),
     primary key (id)
-)
+);
 create table institute
 (
     id   bigint not null,
     name varchar(255),
     primary key (id)
-)
+);
 create table learning_group
 (
     id   bigint not null,
     name varchar(255),
     primary key (id)
-)
+);
 create table lesson
 (
     date_end      timestamp(6),
@@ -105,25 +129,27 @@ create table lesson
     id            bigint not null,
     room          varchar(10),
     primary key (id)
-)
+);
 
 create table employee_discipline
 (
     discipline_id bigint not null,
     employee_id   bigint not null
-)
+);
 
-alter table if exists award add constraint award_employee_fk foreign key (employee_id) references employee
-alter table if exists department add constraint department_institute_fk foreign key (institute_id) references institute
-alter table if exists discipline add constraint discipline_department_fk foreign key (department_id) references department
-alter table if exists education_document add constraint education_document_employee_fk foreign key (employee_id) references employee
-alter table if exists employee add constraint employee_degree_fk foreign key (degree_id) references degree
-alter table if exists employee add constraint employee_employee_type_fk foreign key (employee_type_id) references employee_type
-alter table if exists employee_department add constraint employee_department_department_fk foreign key (department_id) references department
-alter table if exists employee_department add constraint employee_department_employee_fk foreign key (employee_id) references employee
-alter table if exists employee_job add constraint employee_job_employee foreign key (employee_id) references employee
-alter table if exists lesson add constraint lesson_discipline_fk foreign key (discipline_id) references discipline
-alter table if exists lesson add constraint lesson_learning_group foreign key (group_id) references learning_group
-alter table if exists lesson add constraint lesson_employee_fk foreign key (employee_id) references employee
-alter table if exists employee_discipline add constraint employee_discipline_discipline_fk foreign key (discipline_id) references discipline
-alter table if exists employee_discipline add constraint employee_discipline_employee_fk foreign key (employee_id) references employee
+alter table if exists award add constraint award_employee_fk foreign key (employee_id) references employee;
+alter table if exists department add constraint department_institute_fk foreign key (institute_id) references institute;
+alter table if exists discipline add constraint discipline_department_fk foreign key (department_id) references department;
+alter table if exists education_document add constraint education_document_employee_fk foreign key (employee_id) references employee;
+alter table if exists employee add constraint employee_degree_fk foreign key (degree_id) references degree;
+alter table if exists employee add constraint employee_employee_type_fk foreign key (employee_type_id) references employee_type;
+alter table if exists employee_department add constraint employee_department_department_fk foreign key (department_id) references department;
+alter table if exists employee_department add constraint employee_department_employee_fk foreign key (employee_id) references employee;
+alter table if exists employee_job add constraint employee_job_employee foreign key (employee_id) references employee;
+alter table if exists lesson add constraint lesson_discipline_fk foreign key (discipline_id) references discipline;
+alter table if exists lesson add constraint lesson_learning_group foreign key (group_id) references learning_group;
+alter table if exists lesson add constraint lesson_employee_fk foreign key (employee_id) references employee;
+alter table if exists employee_discipline add constraint employee_discipline_discipline_fk foreign key (discipline_id) references discipline;
+alter table if exists employee_discipline add constraint employee_discipline_employee_fk foreign key (employee_id) references employee;
+
+commit ;
