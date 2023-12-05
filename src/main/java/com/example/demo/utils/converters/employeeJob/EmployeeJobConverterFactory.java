@@ -9,4 +9,5 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class EmployeeJobConverterFactory {
     private final NewEmployeeJobConverter newEmployeeJobConverter;
+    private final EmployeeJobFullConverter employeeJobFullConverter;
 }

@@ -1,3 +1,17 @@
+
+insert into department (foundation_year, id, institute_id, room, name)
+values (1974, nextval('department_seq'), 7, 'Б-204', 'Кафедра высшей математики'),
+       (1956, nextval('department_seq'), 5, 'В-401', 'Кафедра физики'),
+       (1989, nextval('department_seq'), 10, 'М-807', 'Кафедра истории'),
+       (1970, nextval('department_seq'), 1, 'З-502', 'Кафедра ВМСС');
+
+insert into discipline (id, name, department_id)
+values (nextval('discipline_seq'), 'Математический анализ', 1),
+       (nextval('discipline_seq'), 'Линейная алгебра', 1),
+       (nextval('discipline_seq'), 'Физика', 2),
+       (nextval('discipline_seq'), 'История', 3),
+       (nextval('discipline_seq'), 'Основы программирования', 4);
+
 insert into employee (contract_date, contract_expire_date, date_of_birth, emp_record_date_start, is_active,
                       is_emp_record_digital, passport_serie, passport_number, passport_dep_code, degree_id,
                       employee_type_id, id, emp_record_num, contract_num, rank, passport_giver_organ,
@@ -27,5 +41,14 @@ values ('2023-12-20 09:20:00', '2023-12-20 10:55:00', 1, 1, 1, nextval('lesson_s
        ('2023-12-20 09:20:00', '2023-12-20 10:55:00', 2, 2, 2, nextval('lesson_seq'), 'Ж-410'),
        ('2023-12-20 11:10:00', '2023-12-20 12:45:00', 2, 2, 2, nextval('lesson_seq'), 'Ж-410'),
        ('2023-12-20 13:45:00', '2023-12-20 15:20:00', 2, 2, 1, nextval('lesson_seq'), 'Ж-412');
+
+insert into employee_discipline (discipline_id, employee_id)
+values (1, 1),
+       (2, 2);
+
+insert into award (date_recieve, employee_id, id, giver_organization, text)
+values ('2013-12-04', 1, nextval('award_seq'), 'Всемирный научный форум', 'За особые заслуги'),
+       ('2004-01-27', 2, nextval('award_seq'), 'Тьюринг МЭИ', 'За великолепное кураторство'),
+       ('2005-01-15', 2, nextval('award_seq'), 'Тьюринг МЭИ', 'За великолепное кураторство повторно');
 
 commit ;

@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.Employee;
+import com.example.demo.entity.EmployeeJob;
 import com.example.demo.rest.dto.degree.NewDegreeRequest;
 import com.example.demo.rest.dto.employee.AddEmployeeRequest;
 import com.example.demo.rest.dto.employee.EditEmployeeRequest;

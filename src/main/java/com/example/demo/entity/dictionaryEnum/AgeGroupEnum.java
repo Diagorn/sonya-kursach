@@ -13,7 +13,7 @@ public enum AgeGroupEnum {
     YOUNG(1, 18, 30),
     MIDDLE_AGE(2, 31, 50),
     ELDER(3, 51, 90),
-    OLD(4, 91, Integer.MAX_VALUE);
+    OLD(4, 91, 300);
 
     private final int code;
     private final int beginAge;
