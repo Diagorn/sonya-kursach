@@ -58,7 +58,7 @@ public class Employee {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "degree_id")
     private Degree degree;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "employee")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "employee", cascade = CascadeType.ALL)
     private List<EmployeeJob> employeeJobs;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "teacher")
     private List<Lesson> lessons;
