@@ -46,6 +46,13 @@ insert into employee_discipline (discipline_id, employee_id)
 values (1, 1),
        (2, 2);
 
+insert into employee_department (employee_id, department_id)
+values (1, 1),
+       (2, 1),
+       (3, 2),
+       (4, 3),
+       (5, 4);
+
 insert into award (date_recieve, employee_id, id, giver_organization, text)
 values ('2013-12-04', 1, nextval('award_seq'), 'Всемирный научный форум', 'За особые заслуги'),
        ('2004-01-27', 2, nextval('award_seq'), 'Тьюринг МЭИ', 'За великолепное кураторство'),
