@@ -14,10 +14,6 @@ export default function EmployeeJobHistoryPage() {
         refreshJobs()
     }, [])
 
-    function onAfterSave() {
-        refreshJobs()
-    }
-
     function refreshJobs() {
         EmployeeJobService.getEmployeeJobs(params.employeeId)
             .then(res => setJobs(res.data.sort(function (a, b) {
