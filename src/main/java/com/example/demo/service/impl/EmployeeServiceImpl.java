@@ -5,11 +5,14 @@ import com.example.demo.entity.dictionaryEnum.AgeGroupEnum;
 import com.example.demo.entity.dictionaryEnum.EmployeeTypeEnum;
 import com.example.demo.exception.common.BadRequestException;
 import com.example.demo.exception.common.NotFoundException;
+import com.example.demo.repo.DisciplineRepo;
 import com.example.demo.repo.EmployeeJobRepo;
 import com.example.demo.repo.EmployeeRepo;
 import com.example.demo.rest.dto.degree.NewDegreeRequest;
+import com.example.demo.rest.dto.discipline.DisciplineDto;
 import com.example.demo.rest.dto.employee.*;
 import com.example.demo.service.*;
+import com.example.demo.utils.converters.discipline.DisciplineConverterFactory;
 import com.example.demo.utils.converters.employee.EmployeeConverterFactory;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,12 +36,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepo employeeRepo;
     private final EmployeeJobRepo employeeJobRepo;
+    private final DisciplineRepo disciplineRepo;
 
     private final EmployeeTypeService employeeTypeService;
     private final DegreeService degreeService;
     private final DisciplineService disciplineService;
 
     private final EmployeeConverterFactory employeeConverterFactory;
+    private final DisciplineConverterFactory disciplineConverterFactory;
 
     @Override
     public ResponseEntity<List<EmployeeFull>> getAll() {
@@ -52,6 +57,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public ResponseEntity<EmployeeFull> add(AddEmployeeRequest request) {
+        if (request.getContractExpireDate() == null) {
+            throw new BadRequestException("Должна быть заполнена дата окончания контракта");
+        }
+
         Employee employee = employeeConverterFactory.getAddEmployeeRequestConverter().convert(request);
 
         EmployeeType type = employeeTypeService.findById(request.getCategoryId());
@@ -89,7 +98,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     private List<Employee> getByFio(String fio) {
-        List<Employee> employees = employeeRepo.findAllByFio(fio);
+        List<Employee> employees = employeeRepo.findAllByFioContaining(fio);
         if (CollectionUtils.isEmpty(employees)) {
             throw new NotFoundException("Не найден сотрудник с ФИО " + fio);
         }
@@ -126,6 +135,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public EmployeeFull getEmpById(Long employeeId) {
+        return employeeConverterFactory.getEmployeeFullConverter().convert(getById(employeeId));
+    }
+
+    @Override
     public void changeDegree(Long employeeId, NewDegreeRequest request) {
         Degree degree = degreeService.getById(request.getId());
         Employee employee = getById(employeeId);
@@ -136,6 +150,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public ResponseEntity<?> edit(EditEmployeeRequest request) {
+        if (request.getContractExpireDate() == null) {
+            throw new BadRequestException("Должна быть заполнена дата окончания контракта");
+        }
+
         Employee employee = getById(request.getId());
 
         employee.setFio(request.getFio());
@@ -165,15 +183,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeRepo.deleteById(employeeId);
         log.info("Удалён сотрудник с идентификатором {}", employeeId);
         return ResponseEntity.ok().build();
-    }
-
-    @Override
-    public ResponseEntity<List<EmployeeDiscipline>> getEmployeeDisciplinesByFio(String employeeFio) {
-        List<Employee> employees = getByFio(employeeFio);
-        LinkedList<EmployeeDiscipline> employeeDisciplines = new LinkedList<>();
-
-        employees.forEach(emp -> employeeDisciplines.addAll(getDisciplines(emp)));
-        return ResponseEntity.ok(employeeDisciplines);
     }
 
     @Override
@@ -251,6 +260,24 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .toList();
 
         return result;
+    }
+
+    @Override
+    public List<Discipline> getAllExcludingEmployees(Employee employee) {
+        return disciplineRepo.findAllByEmployeesNotContaining(employee);
+    }
+
+    @Override
+    public List<DisciplineDto> getAllDtoExcludingEmployees(Employee employee) {
+        return getAllExcludingEmployees(employee).stream()
+                .map(discipline -> disciplineConverterFactory.getDisciplineDtoConverter().convert(discipline))
+                .toList();
+    }
+
+    @Override
+    public List<DisciplineDto> getAllDtoExcludingEmployees(Long employeeId) {
+        Employee employee = getById(employeeId);
+        return getAllDtoExcludingEmployees(employee);
     }
 
     @Getter

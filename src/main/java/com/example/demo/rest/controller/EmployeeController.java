@@ -25,6 +25,11 @@ public class EmployeeController {
         return employeeService.add(request);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<EmployeeFull> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(employeeService.getEmpById(id));
+    }
+
     @GetMapping("/fio/{fio}")
     public ResponseEntity<List<EmployeeFull>> getByFio(@PathVariable String fio) {
         return employeeService.findByFio(fio);
@@ -49,11 +54,6 @@ public class EmployeeController {
     @DeleteMapping("/{employeeId}")
     public ResponseEntity<?> delete(@PathVariable Long employeeId) {
         return employeeService.delete(employeeId);
-    }
-
-    @GetMapping("/fio/{employeeFio}/disciplines")
-    public ResponseEntity<List<EmployeeDiscipline>> getEmployeeDisciplinesByFio(@PathVariable String employeeFio) {
-        return employeeService.getEmployeeDisciplinesByFio(employeeFio);
     }
 
     @GetMapping("/id/{employeeId}/disciplines")

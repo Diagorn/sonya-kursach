@@ -1,8 +1,10 @@
 package com.example.demo.service;
 
+import com.example.demo.entity.Discipline;
 import com.example.demo.entity.Employee;
 import com.example.demo.entity.EmployeeJob;
 import com.example.demo.rest.dto.degree.NewDegreeRequest;
+import com.example.demo.rest.dto.discipline.DisciplineDto;
 import com.example.demo.rest.dto.employee.*;
 import org.springframework.http.ResponseEntity;
 
@@ -19,13 +21,13 @@ public interface EmployeeService {
 
     Employee getById(Long employeeId);
 
+    EmployeeFull getEmpById(Long employeeId);
+
     void changeDegree(Long employeeId, NewDegreeRequest request);
 
     ResponseEntity<?> edit(EditEmployeeRequest request);
 
     ResponseEntity<?> delete(Long employeeId);
-
-    ResponseEntity<List<EmployeeDiscipline>> getEmployeeDisciplinesByFio(String employeeFio);
 
     ResponseEntity<List<EmployeeDiscipline>> getEmployeeDisciplinesById(Long employeeId);
 
@@ -34,4 +36,10 @@ public interface EmployeeService {
     ResponseEntity<List<EmployeeFull>> getAllByAgeGroup(int ageCode);
 
     void addDiscipline(AddEmployeeDisciplineRequest request);
+
+    List<Discipline> getAllExcludingEmployees(Employee employee);
+
+    List<DisciplineDto> getAllDtoExcludingEmployees(Employee employee);
+
+    List<DisciplineDto> getAllDtoExcludingEmployees(Long employeeId);
 }

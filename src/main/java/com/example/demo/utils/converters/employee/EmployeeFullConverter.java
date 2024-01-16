@@ -1,6 +1,7 @@
 package com.example.demo.utils.converters.employee;
 
 import com.example.demo.entity.Employee;
+import com.example.demo.rest.dto.degree.DegreeResponse;
 import com.example.demo.rest.dto.employee.EmployeeFull;
 import com.example.demo.utils.converters.Converter;
 import org.springframework.stereotype.Component;
@@ -26,6 +27,10 @@ public class EmployeeFullConverter implements Converter<Employee, EmployeeFull> 
                 .contractDate(obj.getContractDate())
                 .contractExpireDate(obj.getContractExpireDate())
                 .rank(obj.getRank())
+                .degree(obj.getDegree() == null ? null : DegreeResponse.builder()
+                        .id(obj.getDegree().getId())
+                        .name(obj.getDegree().getName())
+                        .build())
                 .build();
     }
 }

@@ -1,0 +1,7 @@
+export const AWARD_API_URL = 'http://localhost:8080/api/v1/award'
+export const EMPLOYEE_API_URL = 'http://localhost:8080/api/v1/employee'
+export const EMPLOYEE_JOB_API_URL = 'http://localhost:8080/api/v1/employeeJob'
+export const LESSON_API_URL = 'http://localhost:8080/api/v1/lesson'
+export const DEGREE_API_URL = 'http://localhost:8080/api/v1/degree'
+export const DISCIPLINE_API_URL = 'http://localhost:8080/api/v1/discipline'
+export const DEPARTMENT_API_URL = 'http://localhost:8080/api/v1/department'

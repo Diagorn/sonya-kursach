@@ -34,4 +34,9 @@ public class DisciplineServiceImpl implements DisciplineService {
 
         return discipline.get();
     }
+
+    @Override
+    public List<Discipline> getAllDisciplines() {
+        return disciplineRepo.findAll();
+    }
 }

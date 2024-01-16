@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface DisciplineRepo extends JpaRepository<Discipline, Long> {
     List<Discipline> findAllByEmployeesContaining(Employee employee);
+
+    List<Discipline> findAllByEmployeesNotContaining(Employee employee);
 }

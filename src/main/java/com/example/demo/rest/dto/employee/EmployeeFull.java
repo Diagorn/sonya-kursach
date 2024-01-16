@@ -1,5 +1,6 @@
 package com.example.demo.rest.dto.employee;
 
+import com.example.demo.rest.dto.degree.DegreeResponse;
 import lombok.Builder;
 import lombok.Data;
 
@@ -24,4 +25,5 @@ public class EmployeeFull {
     private LocalDate contractDate;
     private LocalDate contractExpireDate;
     private String rank;
+    private DegreeResponse degree;
 }

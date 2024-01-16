@@ -27,7 +27,6 @@ import java.util.Optional;
 @Service
 public class LessonServiceImpl implements LessonService {
 
-    private final LessonRepo lessonRepo;
     private final DepartmentRepo departmentRepo;
 
     private final LessonConverterFactory lessonConverterFactory;
