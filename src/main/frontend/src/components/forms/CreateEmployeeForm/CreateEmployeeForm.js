@@ -1,18 +1,31 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import CreateButton from "../../UI/buttons/CreateButton/CreateButton";
 import BackButton from "../../UI/buttons/BackButton/BackButton";
 import {useNavigate} from "react-router-dom";
 import EmployeeService from "../../../service/api/EmployeeService";
 import {alertError} from "../../../utils/ExceptionUtils";
+import DepartmentService from "../../../service/api/DepartmentService";
 
-export default function CreateEmployeeForm(props) {
+export default function CreateEmployeeForm() {
 
     const [employee, setEmployee] = useState({
         active: false,
         empRecordDigital: false,
         categoryId: 1
     })
+    const [departments, setDepartments] = useState([])
+    const [selectedDepartmentId, setSelectedDepartmentId] = useState(1)
+
     const navigate = useNavigate()
+
+    useEffect(() => {
+        DepartmentService.getAll()
+            .then(res => {
+                setDepartments(res.data)
+                console.log(res.data)
+            })
+            .catch(e => console.log(e))
+    }, [])
 
     function handleChange(e) {
         let {id, value} = e.target
@@ -36,9 +49,18 @@ export default function CreateEmployeeForm(props) {
     }
 
     function save() {
-        EmployeeService.addNewEmployee(employee)
+        const employeeRequest = {
+            ...employee,
+            departmentId: selectedDepartmentId
+        }
+
+        EmployeeService.addNewEmployee(employeeRequest)
             .then(() => navigate('/'))
             .catch(e => alertError(e))
+    }
+
+    function handleDepartmentChange(e) {
+        setSelectedDepartmentId(e.target.value)
     }
 
     return (
@@ -138,6 +160,18 @@ export default function CreateEmployeeForm(props) {
                             <option value={1}>Профессорско-преподавательский состав</option>
                             <option value={2}>Руководитель</option>
                             <option value={3}>Вспомогательный персонал</option>
+                        </select>
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="selectedDepartmentId" className="form-label ms-2">Кафедра</label>
+                        <select id="selectedDepartmentId" className="form-select"
+                                value={selectedDepartmentId}
+                                onChange={(e) => handleDepartmentChange(e)}>
+                            {
+                                departments.map(department => {
+                                    return <option value={department.id}>{department.name}</option>
+                                })
+                            }
                         </select>
                     </div>
                     <div className="mb-3">

@@ -41,6 +41,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeTypeService employeeTypeService;
     private final DegreeService degreeService;
     private final DisciplineService disciplineService;
+    private final DepartmentService departmentService;
 
     private final EmployeeConverterFactory employeeConverterFactory;
     private final DisciplineConverterFactory disciplineConverterFactory;
@@ -62,6 +63,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
 
         Employee employee = employeeConverterFactory.getAddEmployeeRequestConverter().convert(request);
+        Department department = departmentService.getById(request.getDepartmentId());
+        if (employee.getDepartments() == null) {
+            employee.setDepartments(new ArrayList<>());
+        }
+        employee.getDepartments().add(department);
 
         EmployeeType type = employeeTypeService.findById(request.getCategoryId());
         employee.setEmployeeType(type);

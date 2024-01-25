@@ -28,4 +28,5 @@ public class AddEmployeeRequest {
     private LocalDate contractExpireDate;
     private String rank;
     private long categoryId;
+    private long departmentId;
 }
