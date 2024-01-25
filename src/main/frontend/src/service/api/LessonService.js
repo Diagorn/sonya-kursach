@@ -9,4 +9,8 @@ export default class LessonService {
     static async getDepartmentSchedule(departmentId) {
         return axios.get(`${LESSON_API_URL}/schedule/${departmentId}`)
     }
+
+    static async addLesson(addLessonRequest) {
+        return axios.post(LESSON_API_URL, addLessonRequest)
+    }
 }

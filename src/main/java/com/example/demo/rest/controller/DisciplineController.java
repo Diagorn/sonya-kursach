@@ -18,6 +18,17 @@ import java.util.List;
 public class DisciplineController {
 
     private final EmployeeService employeeService;
+    private final DisciplineService disciplineService;
+
+    @GetMapping
+    public ResponseEntity<List<DisciplineDto>> getAll() {
+        return ResponseEntity.ok(disciplineService.getAll());
+    }
+
+    @GetMapping("/employee/{employeeId}")
+    public ResponseEntity<List<DisciplineDto>> getAllForEmployee(@PathVariable Long employeeId) {
+        return ResponseEntity.ok(disciplineService.getAllForEmployee(employeeId));
+    }
 
     @GetMapping("/employee/{employeeId}/missing")
     public ResponseEntity<List<DisciplineDto>> getAllMissingDisciplinesForEmployee(@PathVariable Long employeeId) {

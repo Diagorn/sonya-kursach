@@ -3,6 +3,7 @@ import BackButton from "../../components/UI/buttons/BackButton/BackButton";
 import LessonTable from "../../components/lesson/LessonTable/LessonTable";
 import LessonService from "../../service/api/LessonService";
 import {parseTimestamp} from "../../utils/DateUtils";
+import AddLessonForm from "../../components/forms/AddLessonForm/AddLessonForm";
 
 export default function ScheduleReportPage() {
 
@@ -27,8 +28,30 @@ export default function ScheduleReportPage() {
                         return parseTimestamp(a.dateStart) - parseTimestamp(b.dateStart)
                     })
                 setLessons(lessonArray)
+                console.log(lessonArray)
             })
     }, [])
+
+    function onAfterSave(newLesson) {
+        console.log(newLesson)
+        const departmentName = newLesson.departmentName
+        const lesson = newLesson.lessons[0]
+
+        setLessons(prevState => {
+            return [
+                ...prevState,
+                {
+                    departmentName: departmentName,
+                    dateEnd: lesson.dateEnd,
+                    dateStart: lesson.dateEnd,
+                    disciplineName: lesson.disciplineName,
+                    groupName: lesson.groupName,
+                    room: lesson.room,
+                    teacherName: lesson.teacherName
+                }
+            ]
+        })
+    }
 
     return (
         <div className="container">
@@ -37,6 +60,11 @@ export default function ScheduleReportPage() {
             </div>
             <div className="mb-3">
                 <LessonTable lessons={lessons}/>
+            </div>
+            <div className="mb-3">
+                <AddLessonForm
+                    onAfterSave={onAfterSave}
+                />
             </div>
             <div className="mb-3">
                 <BackButton to="/"/>

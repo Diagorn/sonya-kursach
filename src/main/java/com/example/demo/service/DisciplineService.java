@@ -13,5 +13,7 @@ public interface DisciplineService {
 
     List<Discipline> getAllDisciplines();
 
+    List<DisciplineDto> getAll();
 
+    List<DisciplineDto> getAllForEmployee(Long employeeId);
 }
