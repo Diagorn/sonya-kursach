@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface AwardService {
     ResponseEntity<List<AwardFull>> getAwardsByEmployeeId(Long employeeId);
+
+    void addAward(AwardFull request, Long employeeId);
 }

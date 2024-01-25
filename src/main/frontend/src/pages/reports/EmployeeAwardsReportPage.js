@@ -4,6 +4,7 @@ import EmployeeService from "../../service/api/EmployeeService";
 import AwardService from "../../service/api/AwardService";
 import {alertError} from "../../utils/ExceptionUtils";
 import AwardTable from "../../components/award/AwardTable/AwardTable";
+import AddAwardForm from "../../components/forms/AddAwardForm/AddAwardForm";
 
 export default function EmployeeAwardsReportPage() {
 
@@ -34,6 +35,15 @@ export default function EmployeeAwardsReportPage() {
             .catch(e => alertError(e))
     }
 
+    function onAddAward(award) {
+        setAwards(prevAwards =>
+            [
+                ...prevAwards,
+                award
+            ]
+        )
+    }
+
     return (
         <div className="container">
             <div className="row mt-5">
@@ -56,6 +66,12 @@ export default function EmployeeAwardsReportPage() {
             </div>
             <div className="mb-3">
                 <AwardTable awards={awards}/>
+            </div>
+            <div className="mb-3">
+                <AddAwardForm
+                    employeeId={selectedEmployeeId}
+                    onAddAward={onAddAward}
+                />
             </div>
             <div className="mb-3">
                 <BackButton to="/"/>
