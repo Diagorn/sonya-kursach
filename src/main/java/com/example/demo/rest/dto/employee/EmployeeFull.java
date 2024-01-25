@@ -26,4 +26,5 @@ public class EmployeeFull {
     private LocalDate contractExpireDate;
     private String rank;
     private DegreeResponse degree;
+    private String departments;
 }

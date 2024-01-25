@@ -9,6 +9,7 @@ export default function EmployeeTable(props) {
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">ФИО</th>
+                <th scope="col">Кафедра</th>
                 <th scope="col">Дата рождения</th>
                 <th scope="col">Учёная степень</th>
                 {props.showButtons &&

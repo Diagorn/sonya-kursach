@@ -1,15 +1,23 @@
 package com.example.demo.utils.converters.employee;
 
+import com.example.demo.entity.Department;
 import com.example.demo.entity.Employee;
 import com.example.demo.rest.dto.degree.DegreeResponse;
 import com.example.demo.rest.dto.employee.EmployeeFull;
 import com.example.demo.utils.converters.Converter;
 import org.springframework.stereotype.Component;
 
+import java.util.stream.Collectors;
+
 @Component
 public class EmployeeFullConverter implements Converter<Employee, EmployeeFull> {
     @Override
     public EmployeeFull convert(Employee obj) {
+        var departmentNames = obj.getDepartments() == null ? "" :
+                obj.getDepartments().stream()
+                        .map(Department::getName)
+                        .collect(Collectors.joining(";"));
+
         return EmployeeFull.builder()
                 .id(obj.getId())
                 .fio(obj.getFio())
@@ -31,6 +39,7 @@ public class EmployeeFullConverter implements Converter<Employee, EmployeeFull> 
                         .id(obj.getDegree().getId())
                         .name(obj.getDegree().getName())
                         .build())
+                .departments(departmentNames)
                 .build();
     }
 }

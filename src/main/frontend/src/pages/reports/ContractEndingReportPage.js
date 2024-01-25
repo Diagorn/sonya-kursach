@@ -11,7 +11,7 @@ export default function ContractEndingReportPage() {
         refreshEmployees()
     }, [])
 
-    function refreshEmployees(ageGroup) {
+    function refreshEmployees() {
         EmployeeService.getEmployeesWithEndingContract()
             .then(res => setEmployees(res.data))
             .catch(e => console.log(e))

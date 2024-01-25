@@ -19,6 +19,7 @@ export default function EmployeeRow(props) {
         <tr>
             <th scope="col">{props.employee.id}</th>
             <th>{props.employee.fio}</th>
+            <th>{props.employee.departments}</th>
             <th>{formatDate(props.employee.dateOfBirth)}</th>
             <th>{props.employee.rank}</th>
             {props.showButtons &&
