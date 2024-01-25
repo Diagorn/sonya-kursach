@@ -49,9 +49,6 @@ export default function AddAwardForm(props) {
                     <div className="me-2 d-inline-block">
                         <CreateButton btnCallback={save} className="mr-3"/>
                     </div>
-                    <div className="d-inline-block">
-                        <BackButton to="/"/>
-                    </div>
                 </div>
             </div>
         </div>
