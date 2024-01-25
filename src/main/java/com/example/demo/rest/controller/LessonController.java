@@ -30,4 +30,10 @@ public class LessonController {
     public ResponseEntity<LessonDepartment> addLesson(@RequestBody AddLessonRequest request) {
         return ResponseEntity.ok(lessonService.addLesson(request));
     }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> deleteLesson(@PathVariable Long id) {
+        lessonService.delete(id);
+        return ResponseEntity.ok().build();
+    }
 }

@@ -32,6 +32,12 @@ export default function ScheduleReportPage() {
             })
     }, [])
 
+    function deleteLessonFromTable(id) {
+        setLessons(prevState => {
+            return prevState.filter(lesson => lesson.id !== id)
+        })
+    }
+
     function onAfterSave(newLesson) {
         console.log(newLesson)
         const departmentName = newLesson.departmentName
@@ -59,7 +65,7 @@ export default function ScheduleReportPage() {
                 <h1 className="display-3">Расписание</h1>
             </div>
             <div className="mb-3">
-                <LessonTable lessons={lessons}/>
+                <LessonTable lessons={lessons} onDelete={deleteLessonFromTable}/>
             </div>
             <div className="mb-3">
                 <AddLessonForm

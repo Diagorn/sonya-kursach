@@ -14,6 +14,7 @@ export default function LessonTable(props) {
                 <th scope="col">Дисциплина</th>
                 <th scope="col">Группа</th>
                 <th scope="col">Преподаватель</th>
+                <th/>
             </tr>
             </thead>
             <tbody>
@@ -21,6 +22,7 @@ export default function LessonTable(props) {
                 props.lessons.map(lesson => {
                     return <LessonRow
                         lesson={lesson}
+                        onDelete={props.onDelete}
                     />
                 })
             }

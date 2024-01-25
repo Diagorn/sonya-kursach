@@ -12,4 +12,6 @@ public interface LessonService {
     ResponseEntity<LessonDepartment> getSchedule(Long departmentId);
 
     LessonDepartment addLesson(AddLessonRequest request);
+
+    void delete(Long id);
 }

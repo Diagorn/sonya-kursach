@@ -10,6 +10,7 @@ public class LessonInfoConverter implements Converter<Lesson, LessonInfo> {
     @Override
     public LessonInfo convert(Lesson obj) {
         return LessonInfo.builder()
+                .id(obj.getId())
                 .dateStart(obj.getDateStart())
                 .dateEnd(obj.getDateEnd())
                 .disciplineName(obj.getDiscipline().getName())

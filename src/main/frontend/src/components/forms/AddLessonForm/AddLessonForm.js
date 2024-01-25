@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import CreateButton from "../../UI/buttons/CreateButton/CreateButton";
-import BackButton from "../../UI/buttons/BackButton/BackButton";
 import GroupService from "../../../service/api/GroupService";
 import EmployeeService from "../../../service/api/EmployeeService";
 import DisciplineService from "../../../service/api/DisciplineService";

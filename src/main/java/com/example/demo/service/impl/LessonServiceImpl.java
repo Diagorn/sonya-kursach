@@ -123,4 +123,9 @@ public class LessonServiceImpl implements LessonService {
                 .map(lesson -> lessonConverterFactory.getLessonInfoConverter().convert(lesson))
                 .toList();
     }
+
+    @Override
+    public void delete(Long id) {
+        lessonRepo.deleteById(id);
+    }
 }

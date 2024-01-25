@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 public class LessonInfo {
+    private Long id;
     private LocalDateTime dateStart;
     private LocalDateTime dateEnd;
     private String room;

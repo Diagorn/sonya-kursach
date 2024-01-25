@@ -13,4 +13,8 @@ export default class LessonService {
     static async addLesson(addLessonRequest) {
         return axios.post(LESSON_API_URL, addLessonRequest)
     }
+
+    static async deleteById(lessonId) {
+        return axios.delete(`${LESSON_API_URL}/${lessonId}`)
+    }
 }
